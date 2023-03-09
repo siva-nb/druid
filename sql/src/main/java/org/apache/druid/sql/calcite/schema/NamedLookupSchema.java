@@ -21,6 +21,10 @@ package org.apache.druid.sql.calcite.schema;
 
 import com.google.inject.Inject;
 import org.apache.calcite.schema.Schema;
+import org.apache.druid.server.security.ResourceType;
+import org.apache.druid.sql.calcite.planner.PlannerConfig;
+
+import javax.annotation.Nullable;
 
 /**
  * The schema for Druid lookup tables to be accessible via SQL.
@@ -30,10 +34,12 @@ public class NamedLookupSchema implements NamedSchema
   public static final String NAME = "lookup";
 
   private final LookupSchema lookupSchema;
+  private final PlannerConfig plannerConfig;
 
   @Inject
-  public NamedLookupSchema(LookupSchema lookupSchema)
+  public NamedLookupSchema(PlannerConfig plannerConfig, LookupSchema lookupSchema)
   {
+    this.plannerConfig = plannerConfig;
     this.lookupSchema = lookupSchema;
   }
 
@@ -47,5 +53,15 @@ public class NamedLookupSchema implements NamedSchema
   public Schema getSchema()
   {
     return lookupSchema;
+  }
+
+  @Nullable
+  @Override
+  public String getSchemaResourceType(String resourceName)
+  {
+    if (plannerConfig.isAuthorizeLookUpsDirectly()) {
+      return ResourceType.LOOKUP;
+    }
+    return null;
   }
 }

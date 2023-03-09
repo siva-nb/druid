@@ -63,6 +63,9 @@ public class PlannerConfig
   private boolean authorizeSystemTablesDirectly = false;
 
   @JsonProperty
+  private boolean authorizeLookUpsDirectly = false;
+
+  @JsonProperty
   private boolean useNativeQueryExplain = true;
 
   @JsonProperty
@@ -123,6 +126,11 @@ public class PlannerConfig
     return authorizeSystemTablesDirectly;
   }
 
+  public boolean isAuthorizeLookUpsDirectly()
+  {
+    return authorizeLookUpsDirectly;
+  }
+
   public boolean isUseNativeQueryExplain()
   {
     return useNativeQueryExplain;
@@ -168,6 +176,7 @@ public class PlannerConfig
            useGroupingSetForExactDistinct == that.useGroupingSetForExactDistinct &&
            computeInnerJoinCostAsFilter == that.computeInnerJoinCostAsFilter &&
            authorizeSystemTablesDirectly == that.authorizeSystemTablesDirectly &&
+           authorizeLookUpsDirectly == that.authorizeLookUpsDirectly &&
            maxNumericInFilters == that.maxNumericInFilters;
   }
 
@@ -227,6 +236,7 @@ public class PlannerConfig
     private boolean useGroupingSetForExactDistinct;
     private boolean computeInnerJoinCostAsFilter;
     private boolean authorizeSystemTablesDirectly;
+    private boolean authorizeLookUpsDirectly;
     private boolean useNativeQueryExplain;
     private boolean forceExpressionVirtualColumns;
     private int maxNumericInFilters;
@@ -245,6 +255,7 @@ public class PlannerConfig
       useGroupingSetForExactDistinct = base.isUseGroupingSetForExactDistinct();
       computeInnerJoinCostAsFilter = base.computeInnerJoinCostAsFilter;
       authorizeSystemTablesDirectly = base.isAuthorizeSystemTablesDirectly();
+      authorizeLookUpsDirectly = base.isAuthorizeLookUpsDirectly();
       useNativeQueryExplain = base.isUseNativeQueryExplain();
       forceExpressionVirtualColumns = base.isForceExpressionVirtualColumns();
       maxNumericInFilters = base.getMaxNumericInFilters();
@@ -302,6 +313,12 @@ public class PlannerConfig
     public Builder authorizeSystemTablesDirectly(boolean option)
     {
       this.authorizeSystemTablesDirectly = option;
+      return this;
+    }
+
+    public Builder authorizeLookUpsDirectly(boolean option)
+    {
+      this.authorizeLookUpsDirectly = option;
       return this;
     }
 
@@ -393,6 +410,7 @@ public class PlannerConfig
       config.useGroupingSetForExactDistinct = useGroupingSetForExactDistinct;
       config.computeInnerJoinCostAsFilter = computeInnerJoinCostAsFilter;
       config.authorizeSystemTablesDirectly = authorizeSystemTablesDirectly;
+      config.authorizeLookUpsDirectly = authorizeLookUpsDirectly;
       config.useNativeQueryExplain = useNativeQueryExplain;
       config.maxNumericInFilters = maxNumericInFilters;
       config.forceExpressionVirtualColumns = forceExpressionVirtualColumns;

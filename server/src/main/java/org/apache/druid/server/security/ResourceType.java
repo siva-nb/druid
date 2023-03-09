@@ -33,6 +33,7 @@ public class ResourceType
   public static final String CONFIG = "CONFIG";
   public static final String STATE = "STATE";
   public static final String SYSTEM_TABLE = "SYSTEM_TABLE";
+  public static final String LOOKUP = "LOOKUP";
   public static final String QUERY_CONTEXT = "QUERY_CONTEXT";
   public static final String EXTERNAL = "EXTERNAL";
 
@@ -45,6 +46,7 @@ public class ResourceType
     registerResourceType(CONFIG);
     registerResourceType(STATE);
     registerResourceType(SYSTEM_TABLE);
+    registerResourceType(LOOKUP);
     registerResourceType(QUERY_CONTEXT);
     registerResourceType(EXTERNAL);
   }
